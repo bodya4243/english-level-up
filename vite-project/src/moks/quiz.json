@@ -1,0 +1,107 @@
+{
+  "quiz": {
+    "title": "English Proficiency Test",
+    "questions": [
+      {
+        "question": "Choose the correct sentence:",
+        "options": [
+          "She don’t like apples.",
+          "She doesn’t likes apples.",
+          "She doesn’t like apples.",
+          "She not likes apples."
+        ],
+        "correct_answer": 2
+      },
+      {
+        "question": "What is the past tense of “go”?",
+        "options": [
+          "Go",
+          "Goes",
+          "Went",
+          "Gone"
+        ],
+        "correct_answer": 2
+      },
+      {
+        "question": "Fill in the blank: 'I have ___ car. It’s very fast.'",
+        "options": [
+          "a",
+          "an",
+          "the",
+          "– (no article)"
+        ],
+        "correct_answer": 0
+      },
+      {
+        "question": "Which word is a synonym of “big”?",
+        "options": [
+          "Small",
+          "Huge",
+          "Little",
+          "Thin"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "question": "Rearrange the words to form a correct sentence: 'yesterday / I / homework / finished / my.'",
+        "options": [
+          "Yesterday my finished I homework.",
+          "My I finished yesterday homework.",
+          "I yesterday finished my homework.",
+          "I finished my homework yesterday."
+        ],
+        "correct_answer": 3
+      },
+      {
+        "question": "Choose the correct question form: ___ you like playing football?",
+        "options": [
+          "Do",
+          "Does",
+          "Did",
+          "Are"
+        ],
+        "correct_answer": 0
+      },
+      {
+        "question": "What does 'It’s raining cats and dogs' mean?",
+        "options": [
+          "It’s a sunny day.",
+          "It’s raining heavily.",
+          "There are many animals outside.",
+          "It’s very quiet."
+        ],
+        "correct_answer": 1
+      },
+      {
+        "question": "Choose the correct preposition: 'The book is ___ the table.'",
+        "options": [
+          "in",
+          "on",
+          "at",
+          "over"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "question": "Fill in the blank with the correct form: 'If I ___ rich, I would buy a house.'",
+        "options": [
+          "am",
+          "were",
+          "was",
+          "will be"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "question": "Which sentence is correct?",
+        "options": [
+          "He don’t has any money.",
+          "He doesn’t have any money.",
+          "He hasn’t any money.",
+          "He no has money."
+        ],
+        "correct_answer": 1
+      }
+    ]
+  }
+}
