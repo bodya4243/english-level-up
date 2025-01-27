@@ -19,12 +19,10 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => response, // Успішна відповідь
+    (response) => response,
     (error) => {
-        // Обробка помилок
         if (error.response?.status === 401) {
             console.error('Unauthorized! Redirecting to login...');
-            // Наприклад, перенаправлення на сторінку логіну
             window.location.href = '/login';
         }
         return Promise.reject(error);

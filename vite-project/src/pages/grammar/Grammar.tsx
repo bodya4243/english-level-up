@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance.ts";
 import {useEffect, useState} from "react";
 
@@ -21,11 +21,15 @@ interface fetchedData {
     content: CardContentData;
 }
 
-export default function Grammar() {
+interface propsData {
+    link: string;
+}
+
+export default function Grammar( props: propsData ) {
     const [cardData, setCardData] = useState<fetchedData[] | null>(null);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get('/grammar-card?englishLevel=B1');
+        const response = await axiosInstance.get(`${props.link}`);
         const fetchedCard: fetchedData[] = response.data;
         setCardData(fetchedCard);
     }
