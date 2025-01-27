@@ -11,11 +11,15 @@ interface ResponseData {
     "filePath": string
 }
 
-export default function AListening() {
+interface propsData {
+    link: string;
+}
+
+export default function Listening(props: propsData) {
     const [listeningData, setListeningData] = useState<ResponseData[]>([]);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get('/listening?level=A1');
+        const response = await axiosInstance.get(props.link);
         setListeningData(response.data);
     }
 

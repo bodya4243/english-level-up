@@ -11,11 +11,15 @@ interface fetchedData {
     "level": string
 }
 
-export default function ReadingPage() {
+interface propsData {
+    link: string;
+}
+
+export default function Reading(props: propsData) {
     const [readingData, setReadingData] = useState<fetchedData[]>([]);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get('/reading?level=C1');
+        const response = await axiosInstance.get(props.link);
         const fetchedResponse: fetchedData[] = response.data;
         setReadingData(fetchedResponse);
     }
@@ -50,7 +54,7 @@ export default function ReadingPage() {
                     >
                         <RouterLink
                             to="/reading-content"
-                            state={{ props: item.content }}
+                            state={{props: item.content}}
                         >
                             {item.title}
                         </RouterLink>

@@ -9,11 +9,15 @@ interface ResponseData {
     title: string;
 }
 
-export default function Writing() {
+interface propsData {
+    link: string;
+}
+
+export default function Writing(props: propsData) {
     const [essay, setEssay] = useState<ResponseData[]>([]);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get(`/essay?level=A1`);
+        const response = await axiosInstance.get(props.link);
         setEssay(response.data)
     }
 
