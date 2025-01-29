@@ -3,60 +3,81 @@ import Grid from '@mui/material/Grid2';
 import {ChangeEvent, useState} from "react";
 import Button from "@mui/material/Button";
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Translating: React.FC = () => {
     const boxHeight = `calc(300px + 20px)`;
     const [language, setLanguage] = useState<string>('Ua');
     const [ukrText, setUkrText] = useState<string>('');
     const [recommendation, setRecommendation] = useState<string>('');
-    const getTextPrompt: string = `Generate a simple text in ${language} language at A1 level. The text should contain 5-6 sentences`
+    const getTextPrompt: string = `Generate a simple text in ${language} language at A1 level. The text should contain 5-6 sentences`;
     const [getAnswerPrompt, setGetAnswerPrompt] = useState<string>(
         'Provide grammar recommendations for improvement in 5 sentences or fewer'
     );    const [requestMessage, setRequestMessage] = useState<string>('');
+    const [isGetText, setIsGetText] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setRequestMessage(event.target.value);
     };
 
     const fetchText = async () => {
-        const response = await axios.get(
-            `http://localhost:8080/api/chat`,
-            {
+        setUkrText('');
+        setIsGetText(true);
+
+        try {
+            const response = await axios.get(
+                `http://localhost:8080/api/chat`,
+                {
+                    params: {
+                        prompt: getTextPrompt,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            setUkrText(response.data);
+        } catch (error) {
+            console.error("Error fetching text:", error);
+        } finally {
+            setIsGetText(false);
+        }
+    };
+
+    const fetchRecommendation = async () => {
+        setIsSubmit(true);
+
+        try {
+            if (language === 'En') {
+                setGetAnswerPrompt('analyze whether the translation adheres to the essence of the text and provide recommendations');
+            }
+
+            const response = await axios.get("http://localhost:8080/api/chat", {
                 params: {
-                    prompt: getTextPrompt,
+                    prompt: getAnswerPrompt,
+                    initialText: ukrText,
+                    requestMessage: requestMessage,
                 },
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
-            }
-        );
+            });
 
-        setUkrText(response.data)
-    }
-
-    const fetchRecommendation = async () => {
-        if (language === 'En') {
-            setGetAnswerPrompt('analyze whether the translation adheres to the essence of the text and provide recommendations');
+            setRecommendation(response.data);
+        } catch (error) {
+            console.error("Error fetching recommendation:", error);
         }
-
-        const response = await axios.get("http://localhost:8080/api/chat", {
-            params: {
-                prompt: getAnswerPrompt,
-                initialText: ukrText,
-                requestMessage: requestMessage,
-            },
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                "Content-Type": "application/json",
-            },
-        });
-
-        setRecommendation(response.data);
+        finally {
+            setIsSubmit(false);
+        }
     };
 
     function changeLanguageStr() {
-        setLanguage(language === 'Ua' ? 'En' : 'Ua')
+        setLanguage(language === 'Ua' ? 'En' : 'Ua');
     }
 
     return (
@@ -85,17 +106,25 @@ const Translating: React.FC = () => {
                         </Button>
                     </Box>
 
+                    <Typography sx={{textAlign: 'center'}}>
+                        {language}
+                    </Typography>
                     <Box sx={{
                         marginBottom: "20px",
                         boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)",
                         borderRadius: "20px",
                         padding: "10px",
+                        display: 'flex',
+                        justifyContent: "center",
+                        alignItems: "center",
+                        minHeight: '20px'
                     }}>
-                        <Typography sx={{textAlign: 'center'}}>
-                            {language}
-                        </Typography>
                         <Typography>
-                            {ukrText}
+                            {isGetText? (
+                                <CircularProgress color="success" />
+                            ) : (
+                                ukrText
+                            )}
                         </Typography>
                     </Box>
                     <Typography sx={{textAlign: 'center'}}>
@@ -127,10 +156,17 @@ const Translating: React.FC = () => {
                             overflowY: "auto",
                             maxHeight: boxHeight,
                             height: boxHeight,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
                         <Typography>
-                            {recommendation}
+                            {isSubmit ? (
+                                <CircularProgress color="success" />
+                            ) : (
+                                recommendation
+                            )}
                         </Typography>
                     </Box>
                     <Button onClick={fetchRecommendation}>

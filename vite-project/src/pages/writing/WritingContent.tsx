@@ -3,13 +3,14 @@ import {ChangeEvent, useState} from "react";
 import axiosInstance from "../../api/axiosInstance.ts";
 import {useLocation} from "react-router-dom";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function ReadingContent() {
     const location = useLocation();
     const sentenceQuestion = location.state.title
-
     const [requestMessage, setRequestMessage] = useState<string>('');
     const gptPrompt: string = 'Provide recommendations for grammar improvement in 5 sentences or fewer';
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setRequestMessage(event.target.value);
@@ -29,6 +30,8 @@ export default function ReadingContent() {
             setChatAnswer(response.data);
         } catch (error) {
             console.error('Error fetching chat answer:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -59,9 +62,13 @@ export default function ReadingContent() {
                 padding: "20px",
                 backgroundColor: "white",
                 borderRadius: "10px",
-                height: '300px'
+                height: '300px',
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
-                {chatAnswer}
+                {isLoading ? (
+                    <CircularProgress color="success" />
+                ) : chatAnswer}
             </Box>
         </Container>
     );
