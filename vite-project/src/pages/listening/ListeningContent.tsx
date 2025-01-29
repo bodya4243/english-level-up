@@ -4,6 +4,7 @@ import {Link as RouterLink, useLocation} from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance.ts";
 import {ChangeEvent, useState} from "react";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function ListeningContent() {
     const location = useLocation();
@@ -12,9 +13,12 @@ export default function ListeningContent() {
     const sentenceQuestion: string = 'What do you do every day?';
     const [chatAnswer, setChatAnswer] = useState('');
     const [requestMessage, setRequestMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchAnswer = async () => {
         try {
+            setIsLoading(true);
+
             const response = await axiosInstance.get('/chat', {
                 params: {
                     prompt: gptPrompt,
@@ -25,6 +29,8 @@ export default function ListeningContent() {
             setChatAnswer(response.data);
         } catch (error) {
             console.error('Error fetching chat answer:', error);
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -101,9 +107,14 @@ export default function ListeningContent() {
                 padding: "20px",
                 backgroundColor: "white",
                 borderRadius: "10px",
-                height: '200px'
+                height: '200px',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}>
-                {chatAnswer}
+
+                {isLoading ? (
+                        <CircularProgress color="success" />
+                    ) : chatAnswer}
             </Box>
         </Container>
     );
