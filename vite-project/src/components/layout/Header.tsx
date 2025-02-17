@@ -1,18 +1,22 @@
 import { AppBar, Toolbar, styled, Typography, Box, Divider, Link } from '@mui/material';
-import {Levels} from "../common/EngLevelContext";
 import {useEffect, useState} from "react";
 import axios from 'axios'
+import {Levels} from "../../utils/Level.ts";
 
 const StyledToolbar = styled(Toolbar)({
     display: 'flex',
     justifyContent: 'space-between',
 });
 
+interface ResponseData {
+    level: string;
+}
+
 function Header() {
     const [engLevel, setEngLevel] = useState<Levels | null>(null);
 
     const fetchLevel = async () => {
-        const response = await axios.get(
+        const response = await axios.get<ResponseData>(
             `http://localhost:8080/api/level`,
             {
                 headers: {
@@ -21,8 +25,8 @@ function Header() {
                 }
             }
         );
-
-        setEngLevel(response.data.level)
+        const level = response.data.level as Levels;
+        setEngLevel(level);
     }
 
     useEffect(() => {

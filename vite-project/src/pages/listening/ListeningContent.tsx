@@ -19,7 +19,7 @@ export default function ListeningContent() {
         try {
             setIsLoading(true);
 
-            const response = await axiosInstance.get('/chat', {
+            const response = await axiosInstance.get<string>('/chat', {
                 params: {
                     prompt: gptPrompt,
                     initialText: sentenceQuestion,

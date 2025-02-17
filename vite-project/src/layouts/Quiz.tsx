@@ -30,7 +30,7 @@ export default function Quiz() {
     const requestParam: string = location.state.props;
 
     const fetchData = async () => {
-        const response = await axiosInstance.get(`/quiz?focus=${requestParam}`);
+        const response = await axiosInstance.get<QuizData>(`/quiz?focus=${requestParam}`);
         const fetchedQuiz = response.data;
         setQuiz(fetchedQuiz);
         setAnswers(new Array(fetchedQuiz.questions.length).fill(-1));

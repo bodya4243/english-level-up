@@ -24,13 +24,14 @@ function AudioPlayer ( {link}:PropsType ) {
         }
     };
 
-    const handleVolumeChange = (event: Event, newValue: number | number[]) => {
+    const handleVolumeChange = (_: Event, newValue: number | number[]) => {
         const newVolume = newValue as number;
         setVolume(newVolume);
         if (audioRef.current) {
             audioRef.current.volume = newVolume / 100;
         }
     };
+
 
     const handleTimeUpdate = () => {
         if (audioRef.current) {
@@ -40,7 +41,7 @@ function AudioPlayer ( {link}:PropsType ) {
         }
     };
 
-    const handleSeek = (event: Event, newValue: number | number[]) => {
+    const handleSeek = (_: Event, newValue: number | number[]) => {
         if (audioRef.current) {
             const newProgress = newValue as number;
             audioRef.current.currentTime =

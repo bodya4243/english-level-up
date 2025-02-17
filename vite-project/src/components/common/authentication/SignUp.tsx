@@ -9,12 +9,12 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import {styled} from '@mui/material/styles';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-const Card = styled(MuiCard)(({ theme }) => ({
+const Card = styled(MuiCard)(({theme}) => ({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
@@ -34,7 +34,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
     }),
 }));
 
-const SignUpContainer = styled(Stack)(({ theme }) => ({
+const SignUpContainer = styled(Stack)(({theme}) => ({
     height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
     minHeight: '100%',
     padding: theme.spacing(2),
@@ -56,7 +56,6 @@ export default function SignUp() {
     const [nameError, setNameError] = useState(false);
     const [nameErrorMessage, setNameErrorMessage] = useState('');
     const [user, setUser] = useState<UserResponse | null>(null);
-    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const isAuthenticated = !!localStorage.getItem('token');
 
@@ -126,7 +125,7 @@ export default function SignUp() {
             );
             setUser(response.data);
         } catch (error) {
-            setError('Something went wrong');
+            console.error("Something went wrong: ", error);
         }
     };
 
@@ -138,13 +137,13 @@ export default function SignUp() {
 
     return (
         <Box>
-            <CssBaseline enableColorScheme />
+            <CssBaseline enableColorScheme/>
             <SignUpContainer direction="column" justifyContent="space-between">
                 <Card variant="outlined">
                     <Typography
                         component="h1"
                         variant="h4"
-                        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
+                        sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}
                     >
                         Sign up
                     </Typography>
@@ -152,7 +151,7 @@ export default function SignUp() {
                         component="form"
                         onSubmit={handleSubmit}
                         method="POST"
-                        sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+                        sx={{display: 'flex', flexDirection: 'column', gap: 2}}
                     >
                         <FormControl>
                             <FormLabel htmlFor="name">Full name</FormLabel>
@@ -208,21 +207,21 @@ export default function SignUp() {
                         </Button>
                     </Box>
                     <Divider>
-                        <Typography sx={{ color: 'text.secondary' }}>or</Typography>
+                        <Typography sx={{color: 'text.secondary'}}>or</Typography>
                     </Divider>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Typography sx={{ textAlign: 'center' }}>
+                    <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
+                        <Typography sx={{textAlign: 'center'}}>
                             Already have an account?{' '}
                             <Link
                                 href="/sign-in"
                                 variant="body2"
-                                sx={{ alignSelf: 'center' }}
+                                sx={{alignSelf: 'center'}}
                             >
                                 Sign in
                             </Link>
                         </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{display: 'flex', justifyContent: 'center'}}>
                         {isAuthenticated ? (
                             <Typography sx={{alignItems: "center"}}>
                                 already auth.

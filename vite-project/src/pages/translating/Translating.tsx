@@ -26,7 +26,7 @@ const Translating: React.FC = () => {
         setIsGetText(true);
 
         try {
-            const response = await axios.get(
+            const response = await axios.get<string>(
                 `http://localhost:8080/api/chat`,
                 {
                     params: {
@@ -55,7 +55,7 @@ const Translating: React.FC = () => {
                 setGetAnswerPrompt('analyze whether the translation adheres to the essence of the text and provide recommendations');
             }
 
-            const response = await axios.get("http://localhost:8080/api/chat", {
+            const response = await axios.get<string>("http://localhost:8080/api/chat", {
                 params: {
                     prompt: getAnswerPrompt,
                     initialText: ukrText,
