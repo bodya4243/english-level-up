@@ -23,24 +23,24 @@ The **English Level-Up** project is a web application designed to enhance Englis
 ## Installation
 Follow these steps to run the project locally:
 
-1. **Clone the Repository:**
-   ```bash
-   git clone <repository-url>
-   ```
-
-2. **Navigate to the Project Directory:**
+1. **Navigate to the Project Directory:**
    ```bash
    cd english-level-up-main/vite-project
    ```
 
-3. **Install Dependencies:**
+2. **Install Dependencies:**
    ```bash
    npm install
    ```
 
-4. **Run the Development Server:**
+3. **Run the Development Server:**
    ```bash
    npm run dev
+   ```
+   
+4.**Docker & Docker Compose** installed
+   ```bash
+   docker-compose up --build
    ```
 
 5. **Open in Browser:**
@@ -53,8 +53,6 @@ Follow these steps to run the project locally:
 - **Package Manager:** npm
 
 ## Future Enhancements
-- Add user progress tracking.
-- Integrate more levels and content types.
 - Implement advanced analytics for personalized learning recommendations.
 
 ## Contact
