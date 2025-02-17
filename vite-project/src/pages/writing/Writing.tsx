@@ -17,7 +17,7 @@ export default function Writing(props: propsData) {
     const [essay, setEssay] = useState<ResponseData[]>([]);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get(props.link);
+        const response = await axiosInstance.get<ResponseData[]>(props.link);
         setEssay(response.data)
     }
 

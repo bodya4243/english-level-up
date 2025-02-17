@@ -29,7 +29,7 @@ export default function Grammar( props: propsData ) {
     const [cardData, setCardData] = useState<fetchedData[] | null>(null);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get(`${props.link}`);
+        const response = await axiosInstance.get<fetchedData[]>(`${props.link}`);
         const fetchedCard: fetchedData[] = response.data;
         setCardData(fetchedCard);
     }

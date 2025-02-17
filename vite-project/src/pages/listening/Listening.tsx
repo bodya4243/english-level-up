@@ -19,7 +19,7 @@ export default function Listening(props: propsData) {
     const [listeningData, setListeningData] = useState<ResponseData[]>([]);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get(props.link);
+        const response = await axiosInstance.get<ResponseData[]>(props.link);
         setListeningData(response.data);
     }
 

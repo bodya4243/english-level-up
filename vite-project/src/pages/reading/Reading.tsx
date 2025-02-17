@@ -19,7 +19,7 @@ export default function Reading(props: propsData) {
     const [readingData, setReadingData] = useState<fetchedData[]>([]);
 
     const fetchData = async () => {
-        const response = await axiosInstance.get(props.link);
+        const response = await axiosInstance.get<fetchedData[]>(props.link);
         const fetchedResponse: fetchedData[] = response.data;
         setReadingData(fetchedResponse);
     }

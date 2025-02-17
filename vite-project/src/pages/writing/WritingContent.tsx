@@ -20,7 +20,7 @@ export default function ReadingContent() {
 
     const fetchAnswer = async () => {
         try {
-            const response = await axiosInstance.get('/chat', {
+            const response = await axiosInstance.get<string>('/chat', {
                 params: {
                     prompt: gptPrompt,
                     initialText: sentenceQuestion,
